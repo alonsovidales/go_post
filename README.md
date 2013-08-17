@@ -17,11 +17,13 @@ REST API
 **/subject/ POST** : This method register a new subject on the system, and authenticate it if necessary, should to be called in order to establish a session on the system
 
 Parameters:
- * id (optional): The subject identifier which is guaranteed to be unique, if this parameter is not specified, the system will generate a UUID for the user and return it
+ * id (optional): The subject identifier which is guaranteed to be unique, if this parameter is not specified, the system will generate a GUID for the user and return it
  * name: The nick name of the user
  * auth_token (optional): This parameter if mandatory when the authentication system is enabled, and is the token to be sent to the authentication server
 
 Response:
+ * success : [ok|ko]
+ * reason : In case of success ko, returns the reason as a string
  * id: If the id was not specified will return the auto generated identifier
  * security_token: A token that should to be included in all the next queries to the system
 
@@ -31,10 +33,53 @@ Parameters:
  * id: The subject identifier 
  * security_token: The security token returned by the authentication request
 
-**/groups/ GET** : Retuns a list with all the aviable groups,
-**/groups/ POST**
-**/groups/ PUT**
-**/groups/ DELETE**
+Response:
+ * success : [ok|ko]
+ * reason : In case of success ko, returns the reason as a string
+
+**/groups/ GET** : Retuns a list with all the aviable groups
+
+Parameters:
+ * security_token: The security token returned by the authentication request
+
+Response:
+ * list of dictionaries:
+ ** id : The group identifier
+ ** name : The group name
+
+**/groups/ POST** : Creates a new group and returns the group identifier
+
+Parameters:
+ * id (optional): The group identifier which is guaranteed to be unique, if this parameter is not specified, the system will generate a GUID for the user and return it
+ * name: The group name
+ * max_subjects (optional): The nax number of subjects that can observe this group, if this param is not specified, the number of subjects will be unlimited
+ * security_token: The security token returned by the authentication request
+
+Returns:
+ * id : The group identifier
+ * success : [ok|ko]
+ * reason : In case of success ko, returns the reason as a string
+
+**/groups/ PUT** : Updates a group configuration
+
+Parametes:
+ * id: The group unique identifier
+ * name: The group name
+ * max_subjects (optional): The nax number of subjects that can observe this group, if this param is not specified, the number of subjects will be unlimited
+ * security_token: The security token returned by the authentication request
+
+Returns:
+ * success : [ok|ko]
+ * reason : In case of success ko, returns the reason as a string
+
+**/groups/ DELETE** : Removes an existing group
+
+Parametes:
+ * id: The unique identifier of the group to be removed
+
+Returns:
+ * success : [ok|ko]
+ * reason : In case of success ko, returns the reason as a string
 
 **/msg/ POST**
 **/msg/ GET**
