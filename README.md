@@ -21,12 +21,13 @@ Parameters:
  * name: The nick name of the user
  * auth_token (optional): This parameter if mandatory when the authentication system is enabled, and is the token to be sent to the authentication server
 
- Response:
+Response:
  * id: If the id was not specified will return the auto generated identifier
  * security_token: A token that should to be included in all the next queries to the system
 
 **/subject/ DELETE** : This method closes the connection with the system and removes all the information of the subject, should to be called when the subject closes the session. If the system don't detect activity for the subject it will execute this method automatically
- Parameters:
+
+Parameters:
  * id: The subject identifier 
  * security_token: The security token returned by the authentication request
 
