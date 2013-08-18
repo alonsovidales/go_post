@@ -14,6 +14,9 @@ GoPost is designed to scale horizontally, and be as fast and light as possible.
 
 REST API
 --------------
+**/subject/ GET** : Check the status for a list of users
+
+
 **/subject/ POST** : This method register a new subject on the system, and authenticate it if necessary, should to be called in order to establish a session on the system
 
 Parameters:
@@ -60,10 +63,9 @@ Returns:
  * success : [ok|ko]
  * reason : In case of success ko, returns the reason as a string
 
-**/groups/ PUT** : Updates a group configuration
+**/groups/{group_id}/ PUT** : Updates a group configuration
 
 Parametes:
- * id: The group unique identifier
  * name: The group name
  * max_subjects (optional): The nax number of subjects that can observe this group, if this param is not specified, the number of subjects will be unlimited
  * security_token: The security token returned by the authentication request
@@ -72,14 +74,38 @@ Returns:
  * success : [ok|ko]
  * reason : In case of success ko, returns the reason as a string
 
-**/groups/ DELETE** : Removes an existing group
+**/groups/{group_id} DELETE** : Removes an existing group with the given group identifier
 
-Parametes:
- * id: The unique identifier of the group to be removed
+Parameters:
+ * security_token: The security token returned by the authentication request
 
 Returns:
  * success : [ok|ko]
  * reason : In case of success ko, returns the reason as a string
 
-**/msg/ POST**
-**/msg/ GET**
+**/groups/{group_id}/ GET** : Retuns a list with all the subjects suscribed to the given group
+
+Returns:
+ * subjects : The list of all the identifiers for the suscribed subjects to the given group
+
+**/msgs/ POST** : Send a new message to a list of users or groups, the messages can include a special validation and parametersbo
+
+Parameters:
+ * users : List of user IDs that will receive the messages
+ * groups : List of groups wich users will receive the messages
+ * message : The text of the message to be sent
+ * type : The type of the message, for special messages which requires validation or any backend action, specify the type here according to the pre configured types
+ * args : JSON with all the arguments to be used on the validation of the message type is necessary, this parrameters will be always sent to target subjects
+ * security_token: The security token returned by the authentication request
+
+**/msgs/ GET** : Returns the list of messages for the current user (the system takes the user from the security_token). This request is not answered until one or more messages for the subject are available, or the max time defined in the config is expired, the client should to wait until the server responses and send a new request inmediatly after the server responses. See: [BOSH protocol](http://en.wikipedia.org/wiki/BOSH "BOSH - Wikipedia")
+
+Parameters:
+ * security_token: The security token returned by the authentication request
+
+Returns:
+ * List of messages for the current subject, with a dictionary with the next params for each one:
+ ** txt : The text of the message as was sent by the sender
+ ** type : The message type
+ ** args : The object with all the arguments
+
