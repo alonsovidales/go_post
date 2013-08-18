@@ -47,8 +47,8 @@ Parameters:
 
 Response:
  * list of dictionaries:
- ** id : The group identifier
- ** name : The group name
+  * id : The group identifier
+  * name : The group name
 
 **/groups/ POST** : Creates a new group and returns the group identifier
 
@@ -105,7 +105,7 @@ Parameters:
 
 Returns:
  * List of messages for the current subject, with a dictionary with the next params for each one:
- ** txt : The text of the message as was sent by the sender
- ** type : The message type
- ** args : The object with all the arguments
+  * txt : The text of the message as was sent by the sender
+  * type : The message type
+  * args : The object with all the arguments
 
