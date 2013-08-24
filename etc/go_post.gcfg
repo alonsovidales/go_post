@@ -1,0 +1,21 @@
+[default]
+port = 8080
+ip = 127.0.0.1
+# Possible values: DEBUG, INFO, PANIC, CRITICAL
+logging = DEBUG
+
+#
+# Configuration for the authentication system
+#
+[auth]
+active = off
+url = http://auth.com/auth/
+
+#
+# Configuration of the Redis storage system
+# Format configuration for each cluster node:
+#   server = <auth>@<host>:<port>/<db>
+#
+[redis]
+server = localhost:6379/0
+server = localhost:6379/1
