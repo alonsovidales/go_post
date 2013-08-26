@@ -30,10 +30,9 @@ Response:
  * id: If the id was not specified will return the auto generated identifier
  * security_token: A token that should to be included in all the next queries to the system
 
-**/subject/ DELETE** : This method closes the connection with the system and removes all the information of the subject, should to be called when the subject closes the session. If the system don't detect activity for the subject it will execute this method automatically
+**/subject/{subject_id} DELETE** : This method closes the connection with the system and removes all the information of the subject, should to be called when the subject closes the session. If the system don't detect activity for the subject it will execute this method automatically
 
 Parameters:
- * id: The subject identifier 
  * security_token: The security token returned by the authentication request
 
 Response:
@@ -49,6 +48,7 @@ Response:
  * list of dictionaries:
   * id : The group identifier
   * name : The group name
+  * security_token: The security token returned by the authentication request
 
 **/groups/ POST** : Creates a new group and returns the group identifier
 
